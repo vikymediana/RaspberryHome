@@ -22,6 +22,7 @@ public class BooleanBehaviour extends CyclicBehaviour {
 
     @Override
     public void action() {
+        myLogger.log(Level.INFO, gpioPin.toString());
         GpioPinDigitalOutput output = gpioController.provisionDigitalOutputPin(gpioPin, "MyLED" + getAgent().getAID(), initValue ? PinState.HIGH : PinState.LOW);
 
         ACLMessage msg = getAgent().receive();
