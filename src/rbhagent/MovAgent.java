@@ -21,6 +21,11 @@ public class MovAgent extends Agent {
         Pin pin = RaspiPin.getPinByName(args[0].toString());
         dstTypes.add("LED");
 
+        try {
+            Thread.sleep(300);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         addBehaviour(new RegisterInDFBehaviour(this, "MOV", "TILAB", myLogger));
         //addBehaviour(new ConfigureBehaviour(this));
         addBehaviour(new MovBehaviour(pin, false, dstTypes));
