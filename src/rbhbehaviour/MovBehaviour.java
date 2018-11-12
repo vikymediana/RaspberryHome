@@ -15,7 +15,7 @@ public class MovBehaviour extends SimpleBehaviour {
 
     final GpioController gpioController = GpioFactory.getInstance();
     private Pin gpioPin;
-    private final GpioPinDigitalInput input;
+    final GpioPinDigitalInput input;
     private final List<String> dstTypes;
     private Logger myLogger = Logger.getMyLogger(getClass().getName());
 

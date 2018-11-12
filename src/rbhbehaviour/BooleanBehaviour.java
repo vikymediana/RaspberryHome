@@ -11,7 +11,7 @@ public class BooleanBehaviour extends CyclicBehaviour {
 
     final GpioController gpioController = GpioFactory.getInstance();
     private Pin gpioPin;
-    private GpioPinDigitalOutput output;
+    final GpioPinDigitalOutput output;
     private Logger myLogger = Logger.getMyLogger(getClass().getName());
 
     public BooleanBehaviour(Pin gpioPin, boolean initValue) {
