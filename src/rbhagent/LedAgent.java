@@ -21,7 +21,7 @@ public class LedAgent extends Agent {
         Pin pin = RaspiPin.getPinByName(args[0].toString());
 
         addBehaviour(new RegisterInDFBehaviour(this, "LED", "TILAB", myLogger));
-        addBehaviour(new BooleanBehaviour(pin, false));
+        addBehaviour(new BooleanBehaviour(pin, true));
 
     }
 
