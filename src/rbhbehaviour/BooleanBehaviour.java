@@ -12,15 +12,18 @@ public class BooleanBehaviour extends CyclicBehaviour {
     GpioController gpioController = GpioFactory.getInstance();
     Pin gpioPin;
     GpioPinDigitalOutput output;
+    private boolean initValue;
     private Logger myLogger = Logger.getMyLogger(getClass().getName());
 
     public BooleanBehaviour(Pin gpioPin, boolean initValue) {
         this.gpioPin = gpioPin;
-        output = gpioController.provisionDigitalOutputPin(gpioPin, "MyLED" + getAgent().getAID(), initValue ? PinState.HIGH : PinState.LOW);
+        this.initValue = initValue;
     }
 
     @Override
     public void action() {
+        output = gpioController.provisionDigitalOutputPin(gpioPin, "MyLED" + getAgent().getAID(), initValue ? PinState.HIGH : PinState.LOW);
+
         ACLMessage msg = getAgent().receive();
         if (msg!=null) {
             myLogger.log(Level.INFO, " - " + getAgent().getLocalName() + " <- " + msg.getContent() );
