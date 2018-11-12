@@ -13,7 +13,7 @@ public class GpioUtils {
         pins.put("0", RaspiPin.GPIO_00);
         pins.put("1", RaspiPin.GPIO_01);
         pins.put("2", RaspiPin.GPIO_02);
-        System.out.println("tamaño " + pins.size());
+        System.out.println("pinName " + pinName);
         Pin pin = pins.get(pinName);
         System.out.println(pins.containsKey(pinName));
         return pin;
