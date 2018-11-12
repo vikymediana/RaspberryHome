@@ -22,8 +22,7 @@ public class BooleanBehaviour extends CyclicBehaviour {
 
     @Override
     public void action() {
-       System.out.println(gpioPin == null ? "es nulo" : gpioPin.toString());
-        GpioPinDigitalOutput output = gpioController.provisionDigitalOutputPin(gpioPin, "MyLED" + getAgent().getAID(), initValue ? PinState.HIGH : PinState.LOW);
+        output = gpioController.provisionDigitalOutputPin(gpioPin, "MyLED" + getAgent().getAID(), initValue ? PinState.HIGH : PinState.LOW);
 
         ACLMessage msg = getAgent().receive();
         if (msg!=null) {
