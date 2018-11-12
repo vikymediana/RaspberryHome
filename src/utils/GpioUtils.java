@@ -15,11 +15,7 @@ public class GpioUtils {
         pins.put("GPIO 2", RaspiPin.GPIO_02);
         System.out.println("tamaño " + pins.size());
         Pin pin = pins.get(pinName);
-        System.out.println(pin == null ? "X es nulo" : pin.toString());
-        System.out.println("pinName=" + pinName + "ZZ");
-        for (String s : pins.keySet()) {
-            System.out.println(s);
-        }
+        System.out.println(pins.containsKey(pinName));
         return pin;
     }
 
