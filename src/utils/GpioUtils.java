@@ -13,6 +13,7 @@ public class GpioUtils {
         pins.put("GPIO 0", RaspiPin.GPIO_00);
         pins.put("GPIO 1", RaspiPin.GPIO_01);
         pins.put("GPIO 2", RaspiPin.GPIO_02);
+        System.out.println("tamaño " + pins.size());
         return pins.get(pinName);
     }
 
