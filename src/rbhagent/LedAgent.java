@@ -16,7 +16,15 @@ public class LedAgent extends Agent {
     protected void setup() {
 
         Object[] args = getArguments();
-        Pin pin = RaspiPin.getPinByName(args[0].toString());
+        Class raspiPin = RaspiPin.class;
+        Pin pin = null;
+        try {
+            pin = (Pin) raspiPin.getField(args[0].toString()).get(null);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        }
         System.out.println(args[0].toString());
         System.out.println(pin == null ? "es nulo" : pin.toString());
 
