@@ -9,7 +9,7 @@ import java.util.logging.Level;
 
 public class BooleanBehaviour extends CyclicBehaviour {
 
-    private GpioController gpioController = GpioFactory.getInstance();
+    private final GpioController gpioController = GpioFactory.getInstance();
     private Pin gpioPin;
     private GpioPinDigitalOutput output;
     private Logger myLogger = Logger.getMyLogger(getClass().getName());
