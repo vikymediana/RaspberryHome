@@ -16,6 +16,10 @@ public class GpioUtils {
         System.out.println("tamaño " + pins.size());
         Pin pin = pins.get(pinName);
         System.out.println(pin == null ? "X es nulo" : pin.toString());
+        System.out.println("pinName=" + pinName + "ZZ");
+        for (String s : pins.keySet()) {
+            System.out.println(s);
+        }
         return pin;
     }
 
