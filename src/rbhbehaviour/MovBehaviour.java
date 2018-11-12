@@ -13,14 +13,13 @@ import java.util.List;
 
 public class MovBehaviour extends SimpleBehaviour {
 
-    private GpioController gpioController;
+    private GpioController gpioController = GpioFactory.getInstance();
     private Pin gpioPin;
     private final GpioPinDigitalInput input;
     private final List<String> dstTypes;
     private Logger myLogger = Logger.getMyLogger(getClass().getName());
 
     public MovBehaviour(Pin gpioPin, boolean initValue, List<String> dstTypes) {
-        this.gpioController = GpioFactory.getInstance();
         this.gpioPin = gpioPin;
         this.dstTypes = dstTypes;
         this.input = gpioController.provisionDigitalInputPin(gpioPin, initValue ? PinPullResistance.PULL_UP : PinPullResistance.PULL_DOWN);
