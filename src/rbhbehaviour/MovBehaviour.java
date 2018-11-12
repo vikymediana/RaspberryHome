@@ -34,7 +34,7 @@ public class MovBehaviour extends SimpleBehaviour {
         input.addListener(new GpioPinListenerDigital() {
             @Override
             public void handleGpioPinDigitalStateChangeEvent(GpioPinDigitalStateChangeEvent event) {
-
+                System.out.println("EVENTOOO");
                 ACLMessage message = new ACLMessage(ACLMessage.REQUEST);
                 message.setSender(getAgent().getAID());
                 message.setLanguage("Castellano");
