@@ -13,7 +13,7 @@ import java.util.List;
 
 public class MovBehaviour extends SimpleBehaviour {
 
-    GpioController gpioController = GpioFactory.getInstance();
+    final GpioController gpioController = GpioFactory.getInstance();
     Pin gpioPin;
     GpioPinDigitalInput input;
     private boolean initValue;
