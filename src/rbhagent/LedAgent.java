@@ -18,7 +18,7 @@ public class LedAgent extends Agent {
 
         Object[] args = getArguments();
 
-        Pin pin = GpioUtils.getPinByName(args[0].toString());
+        Pin pin = RaspiPin.getPinByName(args[0].toString());
 
         System.out.println(pin == null ? "es nulo" : pin.toString());
 
