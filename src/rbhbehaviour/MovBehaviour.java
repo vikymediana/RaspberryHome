@@ -16,20 +16,20 @@ public class MovBehaviour extends SimpleBehaviour {
     final GpioController gpioController = GpioFactory.getInstance();
     Pin gpioPin;
     GpioPinDigitalInput input;
-    private boolean initValue;
+    private boolean actualStatus;
     private final List<String> dstTypes;
     private Logger myLogger = Logger.getMyLogger(getClass().getName());
 
     public MovBehaviour(Pin gpioPin, boolean initValue, List<String> dstTypes) {
         this.gpioPin = gpioPin;
         this.dstTypes = dstTypes;
-        this.initValue = initValue;
+        this.actualStatus = initValue;
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        this.input = gpioController.provisionDigitalInputPin(gpioPin, initValue ? PinPullResistance.PULL_UP : PinPullResistance.PULL_DOWN);
+        this.input = gpioController.provisionDigitalInputPin(gpioPin, actualStatus ? PinPullResistance.PULL_UP : PinPullResistance.PULL_DOWN);
     }
 
     @Override
@@ -46,14 +46,14 @@ public class MovBehaviour extends SimpleBehaviour {
                 List<DFAgentDescription> dstAgents = DFUtils.findAgentsByServiceTypes(getAgent(), dstTypes);
 
                 try {
-                    if (event.getState().isHigh()) {
+                    if (event.getState().isHigh() && !actualStatus) {
                         ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
                         msg.setContent("ON");
                         for (DFAgentDescription dstAgent : dstAgents) {
                             msg.addReceiver(dstAgent.getName());
                         }
                         getAgent().send(msg);
-                    } else if (event.getState().isLow()) {
+                    } else if (event.getState().isLow() && actualStatus) {
                         ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
                         msg.setContent("OFF");
                         for (DFAgentDescription dstAgent : dstAgents) {
