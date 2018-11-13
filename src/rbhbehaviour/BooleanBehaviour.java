@@ -34,9 +34,9 @@ public class BooleanBehaviour extends CyclicBehaviour {
             myLogger.log(Level.INFO, " - " + getAgent().getLocalName() + " <- " + msg.getContent() );
             if (msg.getPerformative() == ACLMessage.INFORM) {
                 String content = msg.getContent();
-                if ((content != null) && (content.indexOf("ON") != -1)) {
+                if ((content != null) && (content.indexOf("true") != -1)) {
                     this.output.high();
-                } else if ((content != null) && (content.indexOf("OFF") != -1)) {
+                } else if ((content != null) && (content.indexOf("false") != -1)) {
                     this.output.low();
                 }
             }
