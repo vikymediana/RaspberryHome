@@ -53,7 +53,6 @@ public class MovBehaviour extends SimpleBehaviour {
                             msg.addReceiver(dstAgent.getName());
                         }
                         getAgent().send(msg);
-                        System.out.println("Motion Detected!");
                     } else if (event.getState().isLow()) {
                         ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
                         msg.setContent("OFF");
@@ -61,7 +60,6 @@ public class MovBehaviour extends SimpleBehaviour {
                             msg.addReceiver(dstAgent.getName());
                         }
                         getAgent().send(msg);
-                        System.out.println("All is quiet...");
                     }
                 } catch (Exception e) {
                     System.out.println("ERROR PIR");

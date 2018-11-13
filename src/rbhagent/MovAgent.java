@@ -19,7 +19,7 @@ public class MovAgent extends Agent {
     protected void setup() {
         Object[] args = getArguments();
         Pin pin = RaspiPin.getPinByName(args[0].toString());
-        dstTypes.add("LED");
+        dstTypes.add(args[1].toString());
 
         try {
             Thread.sleep(300);
