@@ -38,7 +38,7 @@ public class MovBehaviour extends SimpleBehaviour {
                 ACLMessage message = new ACLMessage(ACLMessage.REQUEST);
                 message.setSender(getAgent().getAID());
                 message.setLanguage("Castellano");
-                System.out.println(dstTypes.isEmpty() ? "vacio" : dstTypes.get(0));
+
                 List<DFAgentDescription> dstAgents = DFUtils.findAgentsByServiceTypes(getAgent(), dstTypes);
 
                 try {

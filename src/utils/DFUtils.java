@@ -32,6 +32,7 @@ public class DFUtils {
 
         } catch (FIPAException fe) {
             System.err.println("DFService: Error while requesting the DFService!");
+            fe.printStackTrace();
         }
         return dfAgentDescriptions;
     }
