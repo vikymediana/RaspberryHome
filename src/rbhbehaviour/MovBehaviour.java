@@ -47,6 +47,7 @@ public class MovBehaviour extends SimpleBehaviour {
 
                 try {
                     if (event.getState().isHigh() && !actualStatus) {
+                        actualStatus = true;
                         ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
                         msg.setContent("ON");
                         for (DFAgentDescription dstAgent : dstAgents) {
@@ -54,6 +55,7 @@ public class MovBehaviour extends SimpleBehaviour {
                         }
                         getAgent().send(msg);
                     } else if (event.getState().isLow() && actualStatus) {
+                        actualStatus = false;
                         ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
                         msg.setContent("OFF");
                         for (DFAgentDescription dstAgent : dstAgents) {
