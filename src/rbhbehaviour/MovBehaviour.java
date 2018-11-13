@@ -38,33 +38,20 @@ public class MovBehaviour extends SimpleBehaviour {
         input.addListener(new GpioPinListenerDigital() {
             @Override
             public void handleGpioPinDigitalStateChangeEvent(GpioPinDigitalStateChangeEvent event) {
-                System.out.println("EVENTOOO");
-                ACLMessage message = new ACLMessage(ACLMessage.REQUEST);
-                message.setSender(getAgent().getAID());
-                message.setLanguage("Castellano");
-
-                List<DFAgentDescription> dstAgents = DFUtils.findAgentsByServiceTypes(getAgent(), dstTypes);
 
                 try {
-                    if (event.getState().isHigh() && !actualStatus) {
-                        actualStatus = true;
+                    if (event.getState().isHigh() && !actualStatus || event.getState().isLow() && actualStatus) {
+                        List<DFAgentDescription> dstAgents = DFUtils.findAgentsByServiceTypes(getAgent(), dstTypes);
+                        actualStatus = !actualStatus;
                         ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
-                        msg.setContent("ON");
-                        for (DFAgentDescription dstAgent : dstAgents) {
-                            msg.addReceiver(dstAgent.getName());
-                        }
-                        getAgent().send(msg);
-                    } else if (event.getState().isLow() && actualStatus) {
-                        actualStatus = false;
-                        ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
-                        msg.setContent("OFF");
+                        msg.setContent(String.valueOf(actualStatus));
                         for (DFAgentDescription dstAgent : dstAgents) {
                             msg.addReceiver(dstAgent.getName());
                         }
                         getAgent().send(msg);
                     }
                 } catch (Exception e) {
-                    System.out.println("ERROR PIR");
+                    System.out.println("ERROR MOV");
                 }
             }
 
