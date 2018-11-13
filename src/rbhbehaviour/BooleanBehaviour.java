@@ -40,4 +40,10 @@ public class BooleanBehaviour extends CyclicBehaviour {
         }
     }
 
+    @Override
+    public int onEnd() {
+        gpioController.shutdown();
+        gpioController.unprovisionPin(output);
+        return super.onEnd();
+    }
 }

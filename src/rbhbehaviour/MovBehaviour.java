@@ -74,4 +74,11 @@ public class MovBehaviour extends SimpleBehaviour {
         return false;
     }
 
+    @Override
+    public int onEnd() {
+        gpioController.shutdown();
+        gpioController.unprovisionPin(input);
+        return super.onEnd();
+    }
+
 }
