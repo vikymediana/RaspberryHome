@@ -29,7 +29,9 @@ public class MovBehaviour extends SimpleBehaviour {
     @Override
     public void action() {
 
-        this.input = gpioController.provisionDigitalInputPin(gpioPin, initValue ? PinPullResistance.PULL_UP : PinPullResistance.PULL_DOWN);
+        if (input == null) {
+            this.input = gpioController.provisionDigitalInputPin(gpioPin, initValue ? PinPullResistance.PULL_UP : PinPullResistance.PULL_DOWN);
+        }
 
         input.addListener(new GpioPinListenerDigital() {
             @Override
