@@ -38,6 +38,12 @@ public class BooleanBehaviour extends CyclicBehaviour {
                 msg.addReceiver(getAgent().getAID());
                 getAgent().send(msg);
             }
+            @Override
+            public void reset() {
+                System.out.println(super.getTickCount());
+                super.reset();
+                System.out.println(super.getTickCount());
+            }
         };
 
         getAgent().addBehaviour(timeoutBehaviour);
