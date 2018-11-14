@@ -40,6 +40,7 @@ public class MovBehaviour extends SimpleBehaviour {
             public void handleGpioPinDigitalStateChangeEvent(GpioPinDigitalStateChangeEvent event) {
                 try {
                     if (event.getState().isHigh()) {
+                        System.out.println("SE MUEVEEEE");
                         List<DFAgentDescription> dstAgents = DFUtils.findAgentsByServiceTypes(getAgent(), dstTypes);
                         ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
                         msg.setContent(String.valueOf(true));
