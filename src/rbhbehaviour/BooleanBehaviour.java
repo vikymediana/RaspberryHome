@@ -3,6 +3,7 @@ package rbhbehaviour;
 import com.pi4j.io.gpio.*;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.core.behaviours.TickerBehaviour;
+import jade.core.behaviours.WakerBehaviour;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.lang.acl.ACLMessage;
 import jade.util.Logger;
@@ -15,7 +16,7 @@ public class BooleanBehaviour extends CyclicBehaviour {
     GpioController gpioController = GpioFactory.getInstance();
     Pin pin;
     GpioPinDigitalOutput output;
-    TickerBehaviour timeoutBehaviour;
+    WakerBehaviour timeoutBehaviour;
     private boolean actualStatus;
     private long timeout;
     private long lastTrue;
@@ -31,18 +32,12 @@ public class BooleanBehaviour extends CyclicBehaviour {
     public void onStart() {
         super.onStart();
         this.output = gpioController.provisionDigitalOutputPin(pin, "MyLED" + getAgent().getAID(), actualStatus ? PinState.HIGH : PinState.LOW);
-        timeoutBehaviour = new TickerBehaviour(getAgent(), timeout) {
+        timeoutBehaviour = new WakerBehaviour(getAgent(), timeout) {
             protected void onTick() {
                 ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
                 msg.setContent(String.valueOf(false));
                 msg.addReceiver(getAgent().getAID());
                 getAgent().send(msg);
-            }
-            @Override
-            public void reset() {
-                System.out.println(super.getTickCount());
-                super.reset();
-                System.out.println(super.getTickCount());
             }
         };
 
