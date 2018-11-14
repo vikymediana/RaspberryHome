@@ -39,17 +39,14 @@ public class MovBehaviour extends SimpleBehaviour {
             @Override
             public void handleGpioPinDigitalStateChangeEvent(GpioPinDigitalStateChangeEvent event) {
                 try {
-                    if (event.getState().isHigh() && !actualStatus || event.getState().isLow() && actualStatus) {
-                        actualStatus = !actualStatus;
-                        if (actualStatus) {
-                            List<DFAgentDescription> dstAgents = DFUtils.findAgentsByServiceTypes(getAgent(), dstTypes);
-                            ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
-                            msg.setContent(String.valueOf(actualStatus));
-                            for (DFAgentDescription dstAgent : dstAgents) {
-                                msg.addReceiver(dstAgent.getName());
-                            }
-                            getAgent().send(msg);
+                    if (event.getState().isHigh()) {
+                        List<DFAgentDescription> dstAgents = DFUtils.findAgentsByServiceTypes(getAgent(), dstTypes);
+                        ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
+                        msg.setContent(String.valueOf(actualStatus));
+                        for (DFAgentDescription dstAgent : dstAgents) {
+                            msg.addReceiver(dstAgent.getName());
                         }
+                        getAgent().send(msg);
                     }
                 } catch (Exception e) {
                     System.out.println("ERROR MOV");
