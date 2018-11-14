@@ -42,7 +42,7 @@ public class MovBehaviour extends SimpleBehaviour {
                     if (event.getState().isHigh()) {
                         List<DFAgentDescription> dstAgents = DFUtils.findAgentsByServiceTypes(getAgent(), dstTypes);
                         ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
-                        msg.setContent(String.valueOf(actualStatus));
+                        msg.setContent(String.valueOf(true));
                         for (DFAgentDescription dstAgent : dstAgents) {
                             msg.addReceiver(dstAgent.getName());
                         }
