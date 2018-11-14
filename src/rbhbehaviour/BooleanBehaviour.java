@@ -33,7 +33,7 @@ public class BooleanBehaviour extends CyclicBehaviour {
         super.onStart();
         this.output = gpioController.provisionDigitalOutputPin(pin, "MyLED" + getAgent().getAID(), actualStatus ? PinState.HIGH : PinState.LOW);
         timeoutBehaviour = new WakerBehaviour(getAgent(), timeout) {
-            protected void onTick() {
+            protected void onWake() {
                 ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
                 msg.setContent(String.valueOf(false));
                 msg.addReceiver(getAgent().getAID());
