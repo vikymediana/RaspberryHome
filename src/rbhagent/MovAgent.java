@@ -28,7 +28,7 @@ public class MovAgent extends Agent {
         }
         addBehaviour(new RegisterInDFBehaviour(this, "MOV", "TILAB", myLogger));
         //addBehaviour(new ConfigureBehaviour(this));
-        addBehaviour(new MovBehaviour(pin, false, dstTypes));
+        addBehaviour(new MovBehaviour(pin, false, dstTypes, Long.valueOf(args[2].toString())));
 
     }
 

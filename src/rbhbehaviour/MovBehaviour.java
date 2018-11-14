@@ -9,6 +9,7 @@ import jade.lang.acl.ACLMessage;
 import jade.util.Logger;
 import utils.DFUtils;
 
+import java.util.Date;
 import java.util.List;
 
 public class MovBehaviour extends SimpleBehaviour {
@@ -17,19 +18,23 @@ public class MovBehaviour extends SimpleBehaviour {
     Pin pin;
     GpioPinDigitalInput input;
     private boolean actualStatus;
+    private long timeout;
     private final List<String> dstTypes;
+    private long lastNotification;
     private Logger myLogger = Logger.getMyLogger(getClass().getName());
 
-    public MovBehaviour(Pin pin, boolean initValue, List<String> dstTypes) {
+    public MovBehaviour(Pin pin, boolean initValue, List<String> dstTypes, long timeout) {
         this.pin = pin;
         this.dstTypes = dstTypes;
         this.actualStatus = initValue;
+        this.timeout = timeout;
     }
 
     @Override
     public void onStart() {
         super.onStart();
         this.input = gpioController.provisionDigitalInputPin(pin, actualStatus ? PinPullResistance.PULL_UP : PinPullResistance.PULL_DOWN);
+        this.lastNotification = 0;
     }
 
     @Override
@@ -39,7 +44,7 @@ public class MovBehaviour extends SimpleBehaviour {
             @Override
             public void handleGpioPinDigitalStateChangeEvent(GpioPinDigitalStateChangeEvent event) {
                 try {
-                    if (event.getState().isHigh()) {
+                    if (event.getState().isHigh() && isNotificationTimeout()) {
                         System.out.println("SE MUEVEEEE");
                         List<DFAgentDescription> dstAgents = DFUtils.findAgentsByServiceTypes(getAgent(), dstTypes);
                         ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
@@ -57,6 +62,10 @@ public class MovBehaviour extends SimpleBehaviour {
         });
         block();
 
+    }
+
+    private boolean isNotificationTimeout() {
+        return (new Date().getTime()) - lastNotification > timeout;
     }
 
     @Override
