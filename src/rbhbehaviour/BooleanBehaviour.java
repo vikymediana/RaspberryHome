@@ -33,12 +33,10 @@ public class BooleanBehaviour extends CyclicBehaviour {
         this.output = gpioController.provisionDigitalOutputPin(pin, "MyLED" + getAgent().getAID(), actualStatus ? PinState.HIGH : PinState.LOW);
         timeoutBehaviour = new TickerBehaviour(getAgent(), timeout) {
             protected void onTick() {
-                if (actualStatus) {
-                    ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
-                    msg.setContent(String.valueOf(false));
-                    msg.addReceiver(getAgent().getAID());
-                    getAgent().send(msg);
-                }
+                ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
+                msg.setContent(String.valueOf(false));
+                msg.addReceiver(getAgent().getAID());
+                getAgent().send(msg);
             }
         };
 
@@ -55,11 +53,9 @@ public class BooleanBehaviour extends CyclicBehaviour {
                 String content = msg.getContent();
                 if ((content != null) && (content.indexOf("true") != -1)) {
                     this.output.high();
-                    actualStatus = true;
                     timeoutBehaviour.reset();
                 } else if ((content != null) && (content.indexOf("false") != -1)) {
                     this.output.low();
-                    actualStatus = false;
                 }
             }
         } else {
