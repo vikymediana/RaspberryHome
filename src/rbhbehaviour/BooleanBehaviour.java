@@ -48,7 +48,6 @@ public class BooleanBehaviour extends CyclicBehaviour {
 
         ACLMessage msg = getAgent().receive();
         if (msg != null) {
-            myLogger.log(Level.INFO, " - " + getAgent().getLocalName() + " <- " + msg.getContent() + (new Date()).getTime()/1000);
             if (msg.getPerformative() == ACLMessage.INFORM) {
                 String content = msg.getContent();
                 if ((content != null) && (content.indexOf("true") != -1)) {
