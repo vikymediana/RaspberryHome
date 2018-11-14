@@ -7,7 +7,6 @@ import jade.domain.DFService;
 import jade.util.Logger;
 import rbhbehaviour.BooleanBehaviour;
 import rbhbehaviour.RegisterInDFBehaviour;
-import utils.GpioUtils;
 
 public class LedAgent extends Agent {
 

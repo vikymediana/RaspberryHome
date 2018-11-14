@@ -15,6 +15,7 @@ public class BooleanBehaviour extends CyclicBehaviour {
     GpioController gpioController = GpioFactory.getInstance();
     Pin pin;
     GpioPinDigitalOutput output;
+    TickerBehaviour timeoutBehaviour;
     private boolean actualStatus;
     private long timeout;
     private long lastTrue;
@@ -30,17 +31,18 @@ public class BooleanBehaviour extends CyclicBehaviour {
     public void onStart() {
         super.onStart();
         this.output = gpioController.provisionDigitalOutputPin(pin, "MyLED" + getAgent().getAID(), actualStatus ? PinState.HIGH : PinState.LOW);
-        getAgent().addBehaviour(new TickerBehaviour(getAgent(), timeout) {
-                                    protected void onTick() {
-                                        if (actualStatus) {
-                                            ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
-                                            msg.setContent(String.valueOf(false));
-                                            msg.addReceiver(getAgent().getAID());
-                                            getAgent().send(msg);
-                                        }
-                                    }
-                                }
-        );
+        timeoutBehaviour = new TickerBehaviour(getAgent(), timeout) {
+            protected void onTick() {
+                if (actualStatus) {
+                    ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
+                    msg.setContent(String.valueOf(false));
+                    msg.addReceiver(getAgent().getAID());
+                    getAgent().send(msg);
+                }
+            }
+        };
+
+        getAgent().addBehaviour(timeoutBehaviour);
     }
 
     @Override
@@ -54,7 +56,7 @@ public class BooleanBehaviour extends CyclicBehaviour {
                 if ((content != null) && (content.indexOf("true") != -1)) {
                     this.output.high();
                     actualStatus = true;
-                    this.lastTrue = new Date().getTime();
+                    timeoutBehaviour.reset();
                 } else if ((content != null) && (content.indexOf("false") != -1)) {
                     this.output.low();
                     actualStatus = false;
