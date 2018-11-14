@@ -53,6 +53,7 @@ public class MovBehaviour extends SimpleBehaviour {
                             msg.addReceiver(dstAgent.getName());
                         }
                         getAgent().send(msg);
+                        lastNotification = new Date().getTime();
                     }
                 } catch (Exception e) {
                     System.out.println("ERROR MOV");
