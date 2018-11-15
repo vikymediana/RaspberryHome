@@ -43,20 +43,22 @@ public class MovBehaviour extends SimpleBehaviour {
         input.addListener(new GpioPinListenerDigital() {
             @Override
             public void handleGpioPinDigitalStateChangeEvent(GpioPinDigitalStateChangeEvent event) {
-                try {
-                    if (event.getState().isHigh() && isNotificationTimeout()) {
-                        System.out.println("SE MUEVEEEE");
-                        List<DFAgentDescription> dstAgents = DFUtils.findAgentsByServiceTypes(getAgent(), dstTypes);
-                        ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
-                        msg.setContent(String.valueOf(true));
-                        for (DFAgentDescription dstAgent : dstAgents) {
-                            msg.addReceiver(dstAgent.getName());
+                synchronized(this) {
+                    try {
+                        if (event.getState().isHigh() && isNotificationTimeout()) {
+                            System.out.println("SE MUEVEEEE");
+                            List<DFAgentDescription> dstAgents = DFUtils.findAgentsByServiceTypes(getAgent(), dstTypes);
+                            ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
+                            msg.setContent(String.valueOf(true));
+                            for (DFAgentDescription dstAgent : dstAgents) {
+                                msg.addReceiver(dstAgent.getName());
+                            }
+                            getAgent().send(msg);
+                            lastNotification = new Date().getTime();
                         }
-                        getAgent().send(msg);
-                        lastNotification = new Date().getTime();
+                    } catch (Exception e) {
+                        System.out.println("ERROR MOV");
                     }
-                } catch (Exception e) {
-                    System.out.println("ERROR MOV");
                 }
             }
 
