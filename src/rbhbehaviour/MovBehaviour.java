@@ -33,37 +33,34 @@ public class MovBehaviour extends SimpleBehaviour {
     @Override
     public void onStart() {
         super.onStart();
-        this.input = gpioController.provisionDigitalInputPin(pin, actualStatus ? PinPullResistance.PULL_UP : PinPullResistance.PULL_DOWN);
         this.lastNotification = 0;
-    }
-
-    @Override
-    public void action() {
+        this.input = gpioController.provisionDigitalInputPin(pin, actualStatus ? PinPullResistance.PULL_UP : PinPullResistance.PULL_DOWN);
 
         input.addListener(new GpioPinListenerDigital() {
             @Override
             public void handleGpioPinDigitalStateChangeEvent(GpioPinDigitalStateChangeEvent event) {
-                synchronized(this) {
-                    try {
-                        if (event.getState().isHigh() && isNotificationTimeout()) {
-                            System.out.println("SE MUEVEEEE");
-                            List<DFAgentDescription> dstAgents = DFUtils.findAgentsByServiceTypes(getAgent(), dstTypes);
-                            ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
-                            msg.setContent(String.valueOf(true));
-                            for (DFAgentDescription dstAgent : dstAgents) {
-                                msg.addReceiver(dstAgent.getName());
-                            }
-                            getAgent().send(msg);
-                            lastNotification = new Date().getTime();
+                try {
+                    if (event.getState().isHigh() && isNotificationTimeout()) {
+                        System.out.println("SE MUEVEEEE");
+                        List<DFAgentDescription> dstAgents = DFUtils.findAgentsByServiceTypes(getAgent(), dstTypes);
+                        ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
+                        msg.setContent(String.valueOf(true));
+                        for (DFAgentDescription dstAgent : dstAgents) {
+                            msg.addReceiver(dstAgent.getName());
                         }
-                    } catch (Exception e) {
-                        System.out.println("ERROR MOV");
+                        getAgent().send(msg);
+                        lastNotification = new Date().getTime();
                     }
+                } catch (Exception e) {
+                    System.out.println("ERROR MOV");
                 }
             }
 
         });
-        block();
+    }
+
+    @Override
+    public void action() {
 
     }
 
