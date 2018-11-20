@@ -9,6 +9,7 @@ import rbhbehaviour.MovBehaviour;
 import rbhbehaviour.RegisterInDFBehaviour;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MovAgent extends Agent {
@@ -19,7 +20,7 @@ public class MovAgent extends Agent {
     protected void setup() {
         Object[] args = getArguments();
         Pin pin = RaspiPin.getPinByName(args[0].toString());
-        dstTypes.add(args[1].toString());
+        dstTypes.addAll(Arrays.asList(args[1].toString().split("-")));
 
         try {
             Thread.sleep(300);
