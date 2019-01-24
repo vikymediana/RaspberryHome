@@ -3,7 +3,6 @@ package rbhbehaviour;
 import com.pi4j.io.gpio.*;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.core.behaviours.TickerBehaviour;
-import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.lang.acl.ACLMessage;
 import jade.util.Logger;
 
@@ -18,7 +17,6 @@ public class BooleanBehaviour extends CyclicBehaviour {
     TickerBehaviour timeoutBehaviour;
     private boolean actualStatus;
     private long timeout;
-    private long lastTrue;
     private Logger myLogger = Logger.getMyLogger(getClass().getName());
 
     public BooleanBehaviour(Pin pin, boolean actualStatus, long timeout) {

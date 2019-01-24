@@ -5,8 +5,9 @@ import com.pi4j.io.gpio.RaspiPin;
 import jade.core.Agent;
 import jade.domain.DFService;
 import jade.util.Logger;
-import rbhbehaviour.BooleanBehaviour;
+import rbhbehaviour.CreateBehaviour;
 import rbhbehaviour.RegisterInDFBehaviour;
+import rbhmessage.Item;
 
 public class LedAgent extends Agent {
 
@@ -20,7 +21,7 @@ public class LedAgent extends Agent {
         Pin pin = RaspiPin.getPinByName(args[0].toString());
 
         addBehaviour(new RegisterInDFBehaviour(this, "LED", "TILAB", myLogger));
-        addBehaviour(new BooleanBehaviour(pin, false, Long.valueOf(args[1].toString())));
+        addBehaviour(new CreateBehaviour(Item.LED, args[0].toString()));
 
     }
 
