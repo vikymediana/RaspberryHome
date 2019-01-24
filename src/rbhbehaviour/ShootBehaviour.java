@@ -38,7 +38,7 @@ public class ShootBehaviour extends SimpleBehaviour {
 
     @Override
     public void action() {
-        ACLMessage msg = getAgent().receive();
+        /*ACLMessage msg = getAgent().receive();
         if (msg != null) {
             if (msg.getPerformative() == ACLMessage.INFORM) {
                 String content = msg.getContent();
@@ -80,7 +80,7 @@ public class ShootBehaviour extends SimpleBehaviour {
             }
         } else {
             block();
-        }
+        }*/
 
     }
 
