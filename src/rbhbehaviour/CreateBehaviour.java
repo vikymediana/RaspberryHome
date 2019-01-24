@@ -37,10 +37,8 @@ public class CreateBehaviour extends Behaviour {
 
             ACLMessage msgReceived = getAgent().receive();
             if (msgReceived != null) {
-                if (msgReceived.getPerformative() == ACLMessage.REQUEST) {
-                    String content = msgReceived.getContent();
-                    System.out.println("RECIBO: " + content);
-                }
+                String content = msgReceived.getContent();
+                System.out.println("RECIBO: " + content);
             }
         } catch (IOException e) {
             e.printStackTrace();
