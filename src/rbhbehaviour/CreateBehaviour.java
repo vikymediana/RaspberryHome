@@ -28,7 +28,7 @@ public class CreateBehaviour extends CyclicBehaviour {
         rbhMessage.setItem(item);
         rbhMessage.setItemId(itemId);
         DFAgentDescription[] dstAgents = DFUtils.findAgentsByServiceType(getAgent(), "RaspberryPiManager");
-        ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
+        ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
         try {
             msg.setContentObject(rbhMessage);
             for (DFAgentDescription dstAgent : dstAgents) {
