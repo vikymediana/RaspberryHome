@@ -32,6 +32,7 @@ public class ManageRaspberryPiBehaviour extends CyclicBehaviour {
         ACLMessage msgReceived = getAgent().receive();
         if (msgReceived != null) {
             myLogger.log(Level.INFO, " - " + getAgent().getLocalName() + " <- " + msgReceived.getContent() + (new Date()).getTime()/1000);
+            System.out.println("PERFORMATIVE: "+msgReceived.getPerformative());
             if (msgReceived.getPerformative() == ACLMessage.REQUEST) {
                 byte[] content = msgReceived.getByteSequenceContent();
                 RbhMessage rbhMessage = getMessageFromBytes(content);
