@@ -40,6 +40,7 @@ public class ManageRaspberryPiBehaviour extends CyclicBehaviour {
                         Pin pin = RaspiPin.getPinByName(rbhMessage.getItemId());
                         GpioPinDigitalOutput output = gpioController.provisionDigitalOutputPin(pin, rbhMessage.getItem().name() + getAgent().getAID(), PinState.LOW);
                         items.put(pin, output);
+                        System.out.println("creado");
                         ACLMessage reply = msgReceived.createReply();
                         reply.setContent("OK");
                         getAgent().send(reply);
