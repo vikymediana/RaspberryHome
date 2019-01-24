@@ -1,6 +1,7 @@
 package rbhbehaviour;
 
 import jade.core.behaviours.Behaviour;
+import jade.core.behaviours.CyclicBehaviour;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.lang.acl.ACLMessage;
 import rbhmessage.Item;
@@ -10,7 +11,7 @@ import utils.DFUtils;
 import java.io.IOException;
 
 
-public class CreateBehaviour extends Behaviour {
+public class CreateBehaviour extends CyclicBehaviour {
 
     Item item;
     String itemId;
@@ -35,27 +36,23 @@ public class CreateBehaviour extends Behaviour {
             }
             getAgent().send(msg);
 
-            ACLMessage msgReceived = getAgent().receive();
-            if (msgReceived != null) {
-                String content = msgReceived.getContent();
-                System.out.println("RECIBO: " + content);
-            }
+            System.out.println("PETICION ENVIADA ");
         } catch (IOException e) {
             e.printStackTrace();
             getAgent().doDelete();
         }
-        System.out.println("He acabado de crearlo");
 
     }
 
     @Override
     public void action() {
-
-    }
-
-    @Override
-    public boolean done() {
-        return false;
+        ACLMessage msgReceived = getAgent().receive();
+        if (msgReceived != null) {
+            String content = msgReceived.getContent();
+            System.out.println("RECIBO: " + content);
+        } else {
+            block();
+        }
     }
 
 }
