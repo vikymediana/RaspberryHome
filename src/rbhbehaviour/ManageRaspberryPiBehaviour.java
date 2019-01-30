@@ -34,9 +34,10 @@ public class ManageRaspberryPiBehaviour extends CyclicBehaviour {
             myLogger.log(Level.INFO, " - " + getAgent().getLocalName() + " <- " + msgReceived.getContent() + (new Date()).getTime()/1000);
             System.out.println("PERFORMATIVE: "+msgReceived.getPerformative());
             if (msgReceived.getPerformative() == ACLMessage.REQUEST) {
-                System.out.println("entro a leer el objeto");
                 byte[] content = msgReceived.getByteSequenceContent();
+                System.out.println("size " + content.length);
                 RbhMessage rbhMessage = getMessageFromBytes(content);
+                System.out.println(rbhMessage);
                 if (rbhMessage != null) {
                     if (rbhMessage.getMessageType() == RbhMessage.MessageType.CREATE) {
                         Pin pin = RaspiPin.getPinByName(rbhMessage.getItemId());
