@@ -47,11 +47,6 @@ public class CreateBehaviour extends CyclicBehaviour {
             e.printStackTrace();
             getAgent().doDelete();
         }
-
-    }
-
-    @Override
-    public void action() {
         ACLMessage msgReceived = getAgent().receive();
         if (msgReceived != null) {
             String content = msgReceived.getContent();
@@ -59,6 +54,12 @@ public class CreateBehaviour extends CyclicBehaviour {
         } else {
             block();
         }
+
+    }
+
+    @Override
+    public void action() {
+
     }
 
 }
