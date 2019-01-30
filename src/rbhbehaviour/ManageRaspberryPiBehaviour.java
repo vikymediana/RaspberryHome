@@ -34,6 +34,7 @@ public class ManageRaspberryPiBehaviour extends CyclicBehaviour {
             myLogger.log(Level.INFO, " - " + getAgent().getLocalName() + " <- " + msgReceived.getContent() + (new Date()).getTime()/1000);
             System.out.println("PERFORMATIVE: "+msgReceived.getPerformative());
             if (msgReceived.getPerformative() == ACLMessage.REQUEST) {
+                System.out.println("entro a leer el objeto");
                 byte[] content = msgReceived.getByteSequenceContent();
                 RbhMessage rbhMessage = getMessageFromBytes(content);
                 if (rbhMessage != null) {
