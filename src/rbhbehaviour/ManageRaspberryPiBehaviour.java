@@ -37,9 +37,10 @@ public class ManageRaspberryPiBehaviour extends CyclicBehaviour {
                 byte[] content = msgReceived.getByteSequenceContent();
                 System.out.println("size " + content.length);
                 RbhMessage rbhMessage = getMessageFromBytes(content);
-                System.out.println(rbhMessage);
                 if (rbhMessage != null) {
+                    System.out.println(rbhMessage.getMessageType());
                     if (rbhMessage.getMessageType() == RbhMessage.MessageType.CREATE) {
+                        System.out.println("create");
                         Pin pin = RaspiPin.getPinByName(rbhMessage.getItemId());
                         GpioPinDigitalOutput output = gpioController.provisionDigitalOutputPin(pin, rbhMessage.getItem().name() + getAgent().getAID(), PinState.LOW);
                         items.put(pin, output);
