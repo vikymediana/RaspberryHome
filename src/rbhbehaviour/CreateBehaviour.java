@@ -27,6 +27,7 @@ public class CreateBehaviour extends CyclicBehaviour {
         RbhMessage rbhMessage = new RbhMessage();
         rbhMessage.setItem(item);
         rbhMessage.setItemId(itemId);
+        rbhMessage.setMessageType(RbhMessage.MessageType.CREATE);
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
